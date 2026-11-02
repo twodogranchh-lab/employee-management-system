@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import React,{ Component } from 'react';
 import './App.css';
 import EmployeeForm from './components/EmployeeForm';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -12,7 +13,27 @@ function About() {
   return <h1>About Page</h1>;
 }
 
-function App() {
+class App extends Component {
+ constructor(props) {
+  super(props);
+  const  savedEmployees = localStorage.getItem('employees');
+
+this.state = {
+   employees:savedEmployees ? JSON.parse(savedEmployees) : []
+};
+}
+addEmployee = (employee) => {
+   this.setState((prevState) => ({
+     employees: [...prevState.employees, employee]
+}), this.saveData);
+};
+
+saveData = () => {
+  localStorage.setItem('employees', JSON.stringify(this.state.employees));
+};
+
+
+render() {
   return (
     <Router>
       <div className="App">
@@ -22,13 +43,17 @@ function App() {
         </nav>
 
         <Switch>
-<Route path="/employee" component={EmployeeForm} />
+<Route
+ path="/employee"
+ render={() => <EmployeeForm addEmployee={this.addEmployee} />}
+/>
           <Route exact path="/" component={Home} />
           <Route path="/about" component={About} />
         </Switch>
       </div>
     </Router>
   );
+}
 }
 
 export default App;

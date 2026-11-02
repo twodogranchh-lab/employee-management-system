@@ -19,7 +19,7 @@ class EmployeeForm extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    alert(`Employee added: ${this.state.firstName} ${this.state.lastName}`);
+    this.props.addEmployee(this.state);
   };
 render() {
     return (
