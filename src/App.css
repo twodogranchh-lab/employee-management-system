@@ -36,3 +36,39 @@
     transform: rotate(360deg);
   }
 }
+
+
+.employee-list {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.employee-list h1 {
+  text-align: center;
+}
+
+.employee-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.employee-list li {
+  padding: 12px;
+  margin-bottom: 8px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+.employee-list a {
+  color: #282c34;
+  text-decoration: none;
+}
+
+.employee-list a:hover {
+  color: #007bff;
+  text-decoration: underline;
+}

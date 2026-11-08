@@ -3,6 +3,7 @@ import React,{ Component } from 'react';
 import './App.css';
 import EmployeeForm from './components/EmployeeForm';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import EmployeeList from './components/EmployeeList';
 
 
 function Home() {
@@ -16,21 +17,31 @@ function About() {
 class App extends Component {
  constructor(props) {
   super(props);
-  const  savedEmployees = localStorage.getItem('employees');
+  const savedEmployees = localStorage.getItem('employees');
+  const employees = savedEmployees ? JSON.parse(savedEmployees) : [];
 
-this.state = {
-   employees:savedEmployees ? JSON.parse(savedEmployees) : []
-};
+  this.state = {
+    employees: employees.map((employee, index) => ({
+      ...employee,
+      EmployeeId: employee.EmployeeId || Date.now() + index
+    }))
+  };
 }
 addEmployee = (employee) => {
-   this.setState((prevState) => ({
-     employees: [...prevState.employees, employee]
-}), this.saveData);
+  const newEmployee = {
+    ...employee,
+    EmployeeId: Date.now()
+  };
+
+  this.setState((prevState) => ({
+    employees: [...prevState.employees, newEmployee]
+  }), this.saveData);
 };
 
 saveData = () => {
   localStorage.setItem('employees', JSON.stringify(this.state.employees));
 };
+
 
 
 render() {
@@ -43,6 +54,11 @@ render() {
         </nav>
 
         <Switch>
+<Route
+  exact
+  path="/employees"
+  render={() => <EmployeeList employees={this.state.employees} />}
+/>
 <Route
  path="/employee"
  render={() => <EmployeeForm addEmployee={this.addEmployee} />}
