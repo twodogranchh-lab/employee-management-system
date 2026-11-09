@@ -26,6 +26,8 @@ class App extends Component {
       EmployeeId: employee.EmployeeId || Date.now() + index
     }))
   };
+
+localStorage.setItem('employees', JSON.stringify(this.state.employees));
 }
 addEmployee = (employee) => {
   const newEmployee = {
@@ -54,6 +56,26 @@ render() {
         </nav>
 
         <Switch>
+<Route
+  path="/employees/:id"
+  render={({ match }) => {
+    const employee = this.state.employees.find(
+      (emp) => String(emp.EmployeeId) === match.params.id
+    );
+
+    return employee ? (
+      <div className="employee-details">
+        <h1>Employee Details</h1>
+        <p>First Name: {employee.firstName}</p>
+        <p>Last Name: {employee.lastName}</p>
+        <p>Email: {employee.email}</p>
+        <p>Department: {employee.department}</p>
+      </div>
+    ) : (
+      <h1>Employee Not Found</h1>
+    );
+  }}
+/>
 <Route
   exact
   path="/employees"

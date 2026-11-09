@@ -72,3 +72,19 @@
   color: #007bff;
   text-decoration: underline;
 }
+body {
+  background-color: #f4f6f9;
+  font-family: Arial, sans-serif;
+}
+
+.employee-list {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-list li {
+  transition: background-color 0.2s ease;
+}
+
+.employee-list li:hover {
+  background-color: #e8eef7;
+}
